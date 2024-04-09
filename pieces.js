@@ -2,6 +2,10 @@
 const reponse = await fetch("pieces-autos.json");
 const pieces = await reponse.json();
 
+/*********************************************************************************************************************************/
+//DOM : CREATION OF THE ARTICLES
+/*********************************************************************************************************************************/
+
 for (let i = 0; i < pieces.length; i++) {
     // Manipulation du DOM
     const article = pieces[i];
@@ -12,7 +16,7 @@ for (let i = 0; i < pieces.length; i++) {
     const pieceElement = document.createElement("article");
 
     const imageElement = document.createElement("img");
-    imageElement.src = pieces[i].image;
+    imageElement.src = article.image;
 
     const nomElement = document.createElement("h2");
     nomElement.innerText = article.nom;
@@ -40,3 +44,46 @@ for (let i = 0; i < pieces.length; i++) {
     pieceElement.appendChild(stockElement)
 
 }
+
+/*********************************************************************************************************************************/
+//FONCTIONS SORT & FILTER
+/**********************************************************************************************************************************/
+// SORT : 
+const boutonTrier = document.querySelector(".btn-trier");
+boutonTrier.addEventListener("click", function () {
+    const piecesOrdonnees = Array.from(pieces);
+   piecesOrdonnees.sort(function (a, b) {
+        return a.prix - b.prix;
+    });
+    console.log(pieces);
+});
+
+/*************************************************************** */
+// FILTER
+const boutonFiltrer = document.querySelector(".btn-filtrer");
+boutonFiltrer.addEventListener("click", function () {
+   const piecesFiltrees = pieces.filter(function (piece) {
+       return piece.prix <= 35;
+   });
+});
+
+/*************************************************************** */
+//ORDRE DECROISSANT
+const boutonDecroissnt = document.querySelector(".btn-decroissant");
+boutonDecroissnt.addEventListener("click", function () {
+    const piecesDecroissnt = Array.from(pieces);
+   piecesDecroissnt.sort(function (a, b) {
+        return b.prix - a.prix;
+    });
+    console.log(piecesDecroissnt);
+});
+
+/*************************************************************** */
+//FAIT DISPARAITRE CONTENU SANS DESCRIPTION  
+const boutonNoDesc = document.querySelector(".btn-noDesc");
+boutonNoDesc.addEventListener("click", function () {
+   const piecesNoDesc = pieces.filter(function (piece) {
+       return piece.description
+   });
+   console.log(piecesNoDesc)
+});
