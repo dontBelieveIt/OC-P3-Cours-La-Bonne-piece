@@ -12,19 +12,24 @@ export function ajoutListenersAvis() {
             const id = event.target.dataset.id;
             const reponse = await fetch("http://localhost:8081/pieces/" + id + "/avis");
             const avis = await reponse.json(); 
+            window.localStorage.setItem(`avis-piece-${id}`, JSON.stringify(avis));
             const pieceElement = event.target.parentElement; 
-            const avisElement = document.createElement("p");
-
-            for (let i = 0; i < avis.length; i++) {
-                avisElement.innerHTML += `<b>+${avis[i].utilisateur}:</b> ${avis[i].commentaire}<br>` ;
-            }
-            
-            pieceElement.appendChild(avisElement);
+            afficherAvis(pieceElement, avis)
         });
     
     }
- 
  }
+
+ /*********************************************************************************************************************************/
+//AFFICHER AVIS
+/**********************************************************************************************************************************/
+export function afficherAvis(pieceElement, avis) {
+    const avisElement = document.createElement("p"); 
+    for (let i = 0; i < avis.length; i++) {
+        avisElement.innerHTML += `<b>${avis[i].utilisateur}:</b> ${avis[i].commentaire} <br>`;
+    }
+    pieceElement.appendChild(avisElement);
+}
 
  /*********************************************************************************************************************************/
 //POUR POSTER DES AVIS
@@ -47,12 +52,11 @@ export function ajoutListenerEnvoyerAvis() {
         
         // Création de la charge utile au format JSON
         const chargeUtile = JSON.stringify(avis);
-        fetch("http://localhost:8081/avis/", {
+        fetch("http://localhost:8081/avis", {
             method: "POST", 
             headers: {"Content-Type": "application/json"}, 
             body: chargeUtile
         });
 
     });
- }
- 
+}

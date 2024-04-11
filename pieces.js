@@ -1,7 +1,22 @@
-import { ajoutListenersAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
-// Récupération des pièces depuis le fichier JSON
-const reponse = await fetch("http://localhost:8081/pieces");
-const pieces = await reponse.json();
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis, afficherAvis } from "./avis.js";
+
+/*********************************************************************************************************************************/
+//LOCAL STORAGE
+/**********************************************************************************************************************************/
+let pieces = window.localStorage.getItem('pieces');
+
+//Récupération des pièces eventuellement stockées dans le localStorage
+if (pieces === null){
+    // Récupération des pièces depuis l'API
+    const reponse = await fetch('http://localhost:8081/pieces/');
+    pieces = await reponse.json();
+    // Transformation des pièces en JSON
+    const valeurPieces = JSON.stringify(pieces);
+    // Stockage des informations dans le localStorage
+    window.localStorage.setItem("pieces", valeurPieces);
+ }else{
+     pieces = JSON.parse(pieces);
+ }
 
 // function called to sent avis
 ajoutListenerEnvoyerAvis()
@@ -61,6 +76,17 @@ function genererPieces(pieces) {
 // Premier affichage de la page
 genererPieces(pieces);
 
+for (let i = 0; i < pieces.length; i++) {
+    const id = pieces[i].id; 
+    const avisJSON = window.localStorage.getItem(`avis-piece-${id}`); 
+    const avis = JSON.parse(avisJSON); 
+
+    if (avis !== null) {
+        const pieceElement = document.querySelector(`article[data-id="${id}]`); 
+        afficherAvis(pieceElement, avis)
+    }
+    
+}
 /*********************************************************************************************************************************/
 //FONCTIONS SORT & FILTER
 /**********************************************************************************************************************************/
@@ -141,3 +167,12 @@ for(let i=0; i < noms.length ; i++){
 document.querySelector('.abordables')
 .appendChild(abordablesElements);
 
+
+/*********************************************************************************************************************************/
+//BOUTON METTRE A JOUR
+/**********************************************************************************************************************************/
+ // Ajout du listener pour mettre à jour des données du localStorage
+ const boutonMettreAJour = document.querySelector(".btn-maj");
+ boutonMettreAJour.addEventListener("click", function () {
+   window.localStorage.removeItem("pieces");
+ });
