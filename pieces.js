@@ -1,8 +1,10 @@
-import { ajoutListenersAvis } from "./avis.js";
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
 // Récupération des pièces depuis le fichier JSON
 const reponse = await fetch("http://localhost:8081/pieces");
 const pieces = await reponse.json();
 
+// function called to sent avis
+ajoutListenerEnvoyerAvis()
  /*********************************************************************************************************************************/
 //DOM : CREATION OF THE ARTICLES
 /*********************************************************************************************************************************/
@@ -53,6 +55,7 @@ function genererPieces(pieces) {
     }
 
     ajoutListenersAvis();
+    
 }
  
 // Premier affichage de la page
@@ -118,7 +121,7 @@ inputPrixMax.addEventListener('input', function(){
     });
     document.querySelector(".fiches").innerHTML = "";
     genererPieces(piecesFiltrees);  
-})
+});
 
 /*********************************************************************************************************************************/
 //LISTE DE NOMS POUR FILTRES
@@ -136,5 +139,5 @@ for(let i=0; i < noms.length ; i++){
 }
 // Ajout de l'en-tête puis de la liste au bloc résultats filtres
 document.querySelector('.abordables')
-.appendChild(abordablesElements)
+.appendChild(abordablesElements);
 

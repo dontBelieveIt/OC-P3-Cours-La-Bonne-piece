@@ -24,7 +24,19 @@
 				<button class="btn-noDesc">Filtrer les pièces sans description</button>
 				<br>
 				<p>Prix maximum:</p>
-				<input type="range" name="prix-max" id="prix-max" min="0" max="60" step="5">			
+				<input type="range" name="prix-max" id="prix-max" min="0" max="60" step="5">
+				<!-- code a ajouter -->
+				<h3>Ajouter un avis</h3>
+				<form class="formulaire-avis">
+					Identifiant de la pièce :<br>
+					<input type="number" name="piece-id"><br>
+					Nom d'utilisateur :<br>
+					<input type="text" name="utilisateur"><br>
+					Avis :<br>
+					<input type="text" name="commentaire"><br>
+					<input type="number" name="nbEtoiles" min="1" max="5" step="1"><br>
+					<button>Envoyer</button>
+				</form>			
 			</section>
 			<!-- Fiches produits -->
 			<section class="fiches">
