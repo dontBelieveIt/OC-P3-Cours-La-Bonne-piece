@@ -1,5 +1,6 @@
-import { ajoutListenersAvis, ajoutListenerEnvoyerAvis, afficherAvis } from "./avis.js";
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis, afficherAvis, afficherGraphiqueAvis } from "./avis.js";
 
+await afficherGraphiqueAvis();
 /*********************************************************************************************************************************/
 //LOCAL STORAGE
 /**********************************************************************************************************************************/
@@ -28,7 +29,6 @@ function genererPieces(pieces) {
     for (let i = 0; i < pieces.length; i++) {
         // Manipulation du DOM
         const article = pieces[i];
-    
         // Récupération de l'élément du DOM qui accueillera les fiches
         const sectionFiches = document.querySelector(".fiches");
         // Création d’une balise dédiée à une pièce automobile
@@ -176,3 +176,5 @@ document.querySelector('.abordables')
  boutonMettreAJour.addEventListener("click", function () {
    window.localStorage.removeItem("pieces");
  });
+
+ await afficherGraphiqueAvis()

@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>Les Bonnes Pièces</title>
 		<link rel="stylesheet" href="styles.css">
+		<script src="api-http/node_modules/chart.js/dist/chart.umd.js" defer></script>
 		<script type="module" src="pieces.js"></script>
 	</head>
 	<body>
@@ -21,11 +22,10 @@
 				<br>
 				<button class="btn-decroissant">Trier par prix décroissant</button>
 				<br>
-				<button class="btn-noDesc">Filtrer les pièces sans description</button>
+				<button class="btn-nodesc">Filtrer les pièces sans description</button>
 				<br>
 				<p>Prix maximum:</p>
 				<input type="range" name="prix-max" id="prix-max" min="0" max="60" step="5">
-				<!-- code a ajouter -->
 				<h3>Ajouter un avis</h3>
 				<form class="formulaire-avis">
 					Identifiant de la pièce :<br>
@@ -34,18 +34,22 @@
 					<input type="text" name="utilisateur"><br>
 					Avis :<br>
 					<input type="text" name="commentaire"><br>
-					Note <br>
-					<input type="number" name="nbEtoiles" min="1" max="5" step="1"><br>
+					Note:<br>
+					<input type="number" name="nbEtoiles" min="0" max="5"><br>
 					<button>Envoyer</button>
-				</form>			
+				</form>
 				<h3>Données</h3>
 				<button class="btn-maj">Mettre à jour les pièces</button>
+				<!-- code à ajouter-->
+				<h3>Aperçu des avis</h3>
+				<canvas id="graphique-avis" width="300" height="300"></canvas>
 			</section>
+
 			<!-- Fiches produits -->
 			<section class="fiches">
+				<!-- Code ajouté -->
 				<div class="abordables">
-					<p>Pièces abordables</p>
-					
+
 				</div>
 				<div class="disponibles">
 
