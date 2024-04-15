@@ -92,14 +92,43 @@ export async function afficherGraphiqueAvis() {
         document.querySelector("#graphique-avis"),
         config,
     );
-}
 
-export function afficherGraphiqueDispo() {
-    const dispo = pieces.map(piece => piece.disponibilite); 
-    const nb_commentaires = [0, 0, 0, 0, 0];
-
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
+    const piecesJSON = window.localStorage.getItem("pieces"); 
+    const pieces = JSON.parse(piecesJSON); 
+    let nbCommentairesDispo = 0; 
+    let nbCommentaireNonDispo = 0; 
+    
+    for (let i = 0; i < avis.length; i++) {
+        const piece = pieces.find(p => p.id === avis[i].pieceId);
         
+        if (piece) {
+            if (piece.disponibilite) {
+                nbCommentairesDispo++; 
+            
+            } else {
+            nbCommentaireNonDispo++;
+            }
+        }
     }
+
+    const labelsDispo = ["Disponible", "Non dispo."]; 
+    const dataDispo = { 
+        labels: labelsDispo, 
+        datasets: [{
+            label: "Nombre de commentaires", 
+            data: [nbCommentairesDispo, nbCommentaireNonDispo], 
+            backgroundColor: "rgba(0, 230, 255, 1)",
+        }],
+    };
+
+    const configDispo = {
+        type: "bar", 
+        data: dataDispo, 
+    };
+    console.log(dataDispo);
+
+    new Chart(
+        document.querySelector("#graphique-dispo"),
+        configDispo,
+    );
 }
