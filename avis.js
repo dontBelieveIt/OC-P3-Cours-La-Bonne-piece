@@ -93,3 +93,13 @@ export async function afficherGraphiqueAvis() {
         config,
     );
 }
+
+export function afficherGraphiqueDispo() {
+    const dispo = pieces.map(piece => piece.disponibilite); 
+    const nb_commentaires = [0, 0, 0, 0, 0];
+
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        
+    }
+}
